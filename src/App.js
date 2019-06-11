@@ -86,7 +86,7 @@ class App extends Component {
     )
 
     return (
-      <div className="">
+      <div className="container">
         <div className="title_container">
           <h3>Find Docket Info</h3>
         </div>
@@ -102,9 +102,10 @@ class App extends Component {
             <button onClick={ () => this.getDocketInfo() }>Submit</button>
           </div>
 
-            { displayResult }
-            { displayError }
         </div>
+        
+          { displayResult }
+          { displayError }
       </div>
     )
   }
