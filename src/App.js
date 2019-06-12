@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import datas from './data.json';
 
 class App extends Component {
   constructor() {
@@ -10,66 +11,55 @@ class App extends Component {
       userInput: '',
       docketBool: false,
       errorBool: false,
-      errorMessage: ''
+      errorMessage: 'Invald prop_id or unable to find ID. Try again'
     }
   }
 
-  setUserInput = (event) => {
-    this.setState({ userInput: event.target.value })
+  setUserInput = (e) => {
+    this.setState({ userInput: e.target.value })
   }
 
+  // reset local state
   clearData = () => {
     this.setState({ 
       docketData: [],
       userInput: '',
       docketBool: false,
       errorBool: false,
-      errorMessage: ''
      })
   }
 
   getDocketInfo = () => {
-    // console.log(this.state)
-
     let checkValueLength = this.state.userInput.split('')
-    // console.log('checkValueLength', checkValueLength)
 
     if(checkValueLength.length === 6) {
-      console.log(true)  
-      axios.get(`http://localhost:3015/api/getdocketinfo/${ this.state.userInput }`)
+      axios.get(`http://localhost:5000/docket/${ this.state.userInput }`)
       .then((response) => {
-        console.log(response.data)
-        if(typeof response.data ==  "object") {
+        if(response.data.length ===  1) {
           this.setState({ 
             docketData: response.data, 
             docketBool: true,
             userInput: ""
           })
         } else {
-          this.setState({ 
-            errorMessage: response.data,
-            errorBool: true,
-            userInput: ""
-          })
+          this.setState({ errorBool: true, userInput: "" })
         }
       })
-      .catch(err => console.log("Danger unable to fetch data at"))
+      .catch(err => console.log("Danger unable to fetch data at getDocketInfo"))
     } else {
-      console.log(false)
-      console.log("throw error")
+      this.setState({ errorBool: true, userInput: "" })
     }
-
   }
 
   render() {
     let { docketData, errorMessage } = this.state;
 
     let displayResult = this.state.docketBool ? (
-      <div className="result_container">
-        <p>Props_id: { docketData.props_id }</p>
-        <p>Date: { docketData.date }</p>
-        <p>Docket Number: { docketData.docketNumber }</p>
-        <p>Docket Order: { docketData.docketOrder }</p>
+      <div className="result_success">
+        <p>Props_id: { docketData[0].prop_id }</p>
+        <p>Date: { docketData[0].date }</p>
+        <p>Docket Number: { docketData[0].DocketNum }</p>
+        <p>Docket Order: { docketData[0].DocketOrder }</p>
       </div>
     ) : (
       <>
@@ -77,9 +67,9 @@ class App extends Component {
     )
 
     let displayError = this.state.errorBool ? (
-      <div className="result_container">
-        <p>errorMessage: { errorMessage } </p>
-      </div>
+      // <div>
+        <p>{ errorMessage }</p>
+      // </div>
     ) : (
       <>
       </>
@@ -87,12 +77,12 @@ class App extends Component {
 
     return (
       <div className="container">
-        <div className="title_container">
+        <div className="title">
           <h3>Find Docket Info</h3>
         </div>
 
         <div className="main_container">
-          <div className="input_container">
+          <div className="main_items">
             <input value={ this.state.userInput } 
                    type="number"
                    onClick={ this.clearData }
@@ -101,11 +91,13 @@ class App extends Component {
             </input>
             <button onClick={ () => this.getDocketInfo() }>Submit</button>
           </div>
-
+          <div className="result_error">
+            { displayError }
+          </div>
+          { displayResult }
         </div>
         
-          { displayResult }
-          { displayError }
+
       </div>
     )
   }

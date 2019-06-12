@@ -1,31 +1,117 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+/* .container {
+  height: 100vh;
+  background-color: #add7f6;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid rgb(64, 64, 64);
+  height: 7%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 40px;
+}
+
+.main_container {
+  height: 63vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main_items {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+input {
+  height: 60px;
+  width: 60%;
+  font-size: 40px;
+}
+
+input::placeholder {
+  text-align: center;
+}
+
+input[type= number]::-webkit-inner-spin-button, 
+input[type= number]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0; 
+}
+
+button {
+  height: 60px;
+  width: 35%;
+  background-color: #919098;
+  border-radius: 5%;
+  outline: none;
+  border-style: none;
+  font-family: 'Roboto', sans-serif;
+  font-size: 40px;
+}
+
+.result_success {
+  height: 30vh;
+  display: grid;
+  justify-content: center;
+  align-content: space-around;
+}
+
+.result_success > p {
+  font-size: 50px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.result_error {
+  height: 29.5vh;
+  font-size: 50px;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+} */
 
 @media only screen and (max-width: 768px) {
   .container {
     height: 100vh;
-    background-color: yellow;
+    background-color: #add7f6;
   }
 
-  .title_container {
-    background-color: red;
-    height: 7vh;
-    font-size: 40px;
+  .title {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 2px solid rgb(64, 64, 64);
+    height: 7%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 40px;
   }
 
   .main_container {
-    background-color: blue;
-    height: 63vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    height: 93%;
+    
+    display: grid;
+    /* grid-template-columns: 100px; */
+    grid-template-rows: 50% 50%;
+    /* border: 5px solid red; */
+
+    /* align-content: right; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* grid-template-columns: 1f 1f; */
   }
 
-  .input_container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  .main_items {
+    /* display: flex; */
+    grid-row-start: 1;
+    justify-self: stretch;
+    align-self: center;
+    /* justify-content: space-around; */
+    /* align-items: center; */
+
   }
 
   input {
@@ -34,24 +120,41 @@
     font-size: 40px;
   }
 
+  input::placeholder {
+    text-align: center;
+  }
+
   button {
-    font-size: 40px;
     height: 60px;
-    width: 30%;
-    border-radius: 1%;
+    width: 35%;
+    background-color: #919098;
+    border-radius: 5%;
     outline: none;
     border-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 40px;
   }
 
-  .result_container {
-    background-color: gray;
-    height: 30vh;
-    display: grid;
-    justify-content: center;
-    align-content: center;
+  .result_success {
+    /* height: 30vh; */
+    /* display: grid; */
+    /* justify-content: center; */
+    /* align-content: space-around; */
   }
 
-  .result_container > p {
+  .result_success > p {
     font-size: 50px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .result_error {
+    grid-row-start: 2;
+    /* justify-self: stretch; */
+    align-self: center;
+
+    /* height: 30vh; */
+    font-size: 50px;
+    font-family: 'Roboto', sans-serif;
+    /* text-align: left; */
   }
 }
