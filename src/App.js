@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import './App.css';
-import axios from 'axios';
-import datas from './data.json';
+import React, { Component } from 'react'
+import './App.css'
+import axios from 'axios'
+import Result from './components/Result/result'
 
 class App extends Component {
   constructor() {
@@ -9,7 +9,6 @@ class App extends Component {
     this.state = {
       docketData: [],
       userInput: '',
-      docketBool: false,
       errorBool: false,
       errorMessage: 'Invald prop_id or unable to find ID. Try again'
     }
@@ -24,7 +23,6 @@ class App extends Component {
     this.setState({ 
       docketData: [],
       userInput: '',
-      docketBool: false,
       errorBool: false,
      })
   }
@@ -33,43 +31,37 @@ class App extends Component {
     let checkValueLength = this.state.userInput.split('')
 
     if(checkValueLength.length === 6) {
-      axios.get(`http://localhost:5000/docket/${ this.state.userInput }`)
+      
+      axios.get(`http://localhost:3015/api/getdocketinfo/${ this.state.userInput }`)
       .then((response) => {
-        if(response.data.length ===  1) {
+        console.log('response', response)
+        if(response.data.length >=  1) {
           this.setState({ 
             docketData: response.data, 
-            docketBool: true,
             userInput: ""
           })
         } else {
           this.setState({ errorBool: true, userInput: "" })
         }
       })
-      .catch(err => console.log("Danger unable to fetch data at getDocketInfo"))
+      .catch(err => console.log("Danger unable to fetch data at getDocketInfo" + err))
     } else {
       this.setState({ errorBool: true, userInput: "" })
     }
   }
 
   render() {
-    let { docketData, errorMessage } = this.state;
+    let { docketData, errorMessage, errorBool, userInput } = this.state
 
-    let displayResult = this.state.docketBool ? (
-      <div className="result_success">
-        <p>Props_id: { docketData[0].prop_id }</p>
-        <p>Date: { docketData[0].date }</p>
-        <p>Docket Number: { docketData[0].DocketNum }</p>
-        <p>Docket Order: { docketData[0].DocketOrder }</p>
-      </div>
-    ) : (
+    let displayResult = docketData ? 
+      <Result docket={this.state.docketData}/>
+    : (
       <>
       </>
     )
 
-    let displayError = this.state.errorBool ? (
-      // <div>
-        <p>{ errorMessage }</p>
-      // </div>
+    let displayError = errorBool ? (
+      <p>{ errorMessage }</p>
     ) : (
       <>
       </>
@@ -83,7 +75,7 @@ class App extends Component {
 
         <div className="main_container">
           <div className="main_items">
-            <input value={ this.state.userInput } 
+            <input value={ userInput } 
                    type="number"
                    onClick={ this.clearData }
                    onChange={ (e) => this.setUserInput(e) } 
@@ -91,16 +83,12 @@ class App extends Component {
             </input>
             <button onClick={ () => this.getDocketInfo() }>Submit</button>
           </div>
-          <div className="result_error">
-            { displayError }
-          </div>
           { displayResult }
+          { displayError }
         </div>
-        
-
       </div>
     )
   }
 }
 
-export default App;
+export default App

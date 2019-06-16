@@ -1,19 +1,19 @@
 {
   "data": [
      {
-      "props_id": 100012,
+      "prop_id": 100012,
       "docketNumber": 1501,
       "docketOrder": 1,
       "date": "6/12/2019"
     },
     {
-      "props_id": 100121,
+      "prop_id": 100121,
       "docketNumber": 1501,
       "docketOrder": 2,
       "date": "6/12/2019"
     },
     {
-      "props_id": 100233,
+      "prop_id": 100233,
       "docketNumber": 1501,
       "docketOrder": 3,
       "date": "6/14/2019"

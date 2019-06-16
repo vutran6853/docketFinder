@@ -1,0 +1,16 @@
+{
+  "data": [
+     {
+      "prop_id": 100012,
+      "DocketNum": 1501,
+      "DocketOrder": 1,
+      "date": "6/12/2019"
+    },
+    {
+      "prop_id": 100012,
+      "DocketNum": 1502,
+      "DocketOrder": 1,
+      "date": "6/123/2019"
+    }
+  ]
+}
